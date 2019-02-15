@@ -1,6 +1,4 @@
 <?php
+require('2.php');
 
-$b = array('a' => 'apple',  'b' => 'banana',  'c' => array('x', 'y', 'z'));
-$result = print_r($b);
-
-echo $result;
+if (1 == 1) echo 'hi';
