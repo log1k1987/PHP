@@ -7,6 +7,8 @@ $for_task1 = [
     'мышь'
 ];
 
-task1($for_task1, true);
+task1($for_task1);
 
 task2('*', 2, 6, 3.2);
+
+task3(7, 7);

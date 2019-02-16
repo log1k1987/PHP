@@ -9,7 +9,7 @@ function task1($massive = [], $switcher = false)
         return implode($massive);
     }
     for ($i = 0; $i < sizeof($massive); $i++) {
-        echo "<b>$massive[$i]</b>";
+        echo "<b>$massive[$i]</b><br>";
     }
 }
 
@@ -40,5 +40,25 @@ function task2()
     } else {
         $result = 'Мало данных';
     }
-    echo $result;
+    echo $result . '<br>';
+}
+
+function task3($x = '', $y = '')
+{
+    if (is_int($x) && is_int($y)) {
+        echo "<table style=text-align:center>";
+
+        for ($a = 1; $a <= $x; $a++) {
+            echo "<tr>";
+            for ($b = 1; $b <= $y; $b++) {
+                $result = $a * $b;
+                echo "<td>$result</td>";
+            }
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo 'переданы неверные аргументы';
+    }
 }
