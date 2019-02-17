@@ -16,37 +16,8 @@ $drawings_paints = DRAWINGS - DRAWINGS_FELT_PEN - DRAWINGS_PENCIL;
 
 echo "Красками выполнено $drawings_paints рисунков <br>";
 
-//Задание #3.1 && #3.2
-$age = '';
-$age = 31;
-
-//Задание #3.3
-if (18 <= $age && $age <= 65) {
-    echo 'Вам еще работать и работать<br>';
-}
-
-//Задание #3.4
-$age = 77;
-
-if (18 <= $age && $age <= 65) {
-    echo 'Вам еще работать и работать<br>';
-} elseif ($age > 65) {
-    echo 'Вам пора на пенсию<br>';
-}
-
-//Задание #3.5
-$age = 7;
-
-if (18 <= $age && $age <= 65) {
-    echo 'Вам еще работать и работать<br>';
-} elseif ($age > 65) {
-    echo 'Вам пора на пенсию<br>';
-} elseif (1 <= $age && $age <= 17) {
-    echo 'Вам ещё рано работать<br>';
-}
-
-//Задание #3.6
-$age = 0;
+//Задание #3
+$age = rand(0, 100);
 
 if (18 <= $age && $age <= 65) {
     echo 'Вам еще работать и работать<br>';
@@ -59,7 +30,7 @@ if (18 <= $age && $age <= 65) {
 }
 
 //Задание #4
-$day = 1;
+$day = rand(0, 10);
 
 switch ($day) {
     case 1:
@@ -78,31 +49,36 @@ switch ($day) {
 }
 
 //Задание #5
-$bmw = [];
-$bmw['model'] = "X5";
-$bmw['speed'] = 120;
-$bmw['doors'] = 5;
-$bmw['year'] = "2015";
+$bmw = [
+    'model' => "X5",
+    'speed' => 120,
+    'doors' => 5,
+    'year' => "2015"
+];
 
-$toyota = [];
-$toyota['model'] = "Rav4";
-$toyota['speed'] = 180;
-$toyota['doors'] = 5;
-$toyota['year'] = "2019";
+$toyota = [
+    'model' => "Rav4",
+    'speed' => 180,
+    'doors' => 5,
+    'year' => "2019"
+];
 
-$opel = [];
-$opel['model'] = "Astra";
-$opel['speed'] = 150;
-$opel['doors'] = 5;
-$opel['year'] = "2011";
+$opel = [
+    'model' => "Astra",
+    'speed' => 150,
+    'doors' => 5,
+    'year' => "2011"
+];
 
-$cars = [];
-$cars['bmw'] = $bmw;
-$cars['opel'] = $opel;
-$cars['toyota'] = $toyota;
+$cars = [
+    'bmw' => $bmw,
+    'opel' => $opel,
+    'toyota' => $toyota
+];
+
 
 foreach ($cars as $brand => $ss) {
-    echo "Car $brand<br> $ss[model] $ss[speed] $ss[doors] $ss[year]<br>";
+    echo "Car $brand<br>" . $ss['model'] . " " . $ss['speed'] . " " . $ss['doors'] . " " . $ss['year'] . " " . "<br>";
 }
 
 //Задание #6
