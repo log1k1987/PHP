@@ -78,7 +78,7 @@ $cars = [
 
 
 foreach ($cars as $brand => $ss) {
-    echo "Car $brand<br>" . $ss['model'] . " " . $ss['speed'] . " " . $ss['doors'] . " " . $ss['year'] . " " . "<br>";
+    echo "Car $brand<br> {$ss['model']} {$ss['speed']} {$ss['doors']} {$ss['year']}<br>";
 }
 
 //Задание #6
