@@ -8,7 +8,7 @@ $for_task1 = [
 ];
 
 task1($for_task1);
-task2('*', 2, 6, 3.2);
+task2('/', 2, 7, 3.2);
 task3(7, 7);
 task4();
 task5();

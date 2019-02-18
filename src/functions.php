@@ -1,26 +1,26 @@
 <?php
 
-function task1($massive = [], $switcher = false)
+function task1($array = [], $switcher = false)
 {
-    if (!$massive) {
+    if (!$array) {
         return 'Данные не переданы';
     }
     if ($switcher === true) {
-        return implode($massive);
+        return implode(' ', $array);
     }
-    for ($i = 0; $i < sizeof($massive); $i++) {
-        echo "<b>$massive[$i]</b><br>";
+    for ($i = 0; $i < sizeof($array); $i++) {
+        echo "<p>$array[$i]</p>";
     }
 }
 
 function task2()
 {
     if (func_num_args() > 1 && is_string(func_get_arg(0))) {
-        $x = func_get_arg(0);
+        $action = func_get_arg(0);
         $result = func_get_arg(1);
 
         for ($i = 2; $i < func_num_args(); $i++) {
-            switch ($x) {
+            switch ($action) {
                 case '+':
                     $result += func_get_arg($i);
                     break;
@@ -31,7 +31,9 @@ function task2()
                     $result *= func_get_arg($i);
                     break;
                 case '/':
-                    $result /= func_get_arg($i);
+                    if (func_get_arg($i) !== 0) {
+                        $result /= func_get_arg($i);
+                    }
                     break;
                 default:
                     $result = 'Передан неверный первый аргумент';
@@ -43,15 +45,15 @@ function task2()
     echo $result . '<br>';
 }
 
-function task3($x = '', $y = '')
+function task3($rows = '', $cols = '')
 {
-    if (is_int($x) && is_int($y)) {
+    if (is_int($rows) && is_int($cols)) {
         echo "<table style=text-align:center>";
 
-        for ($a = 1; $a <= $x; $a++) {
+        for ($tr = 1; $tr <= $rows; $tr++) {
             echo "<tr>";
-            for ($b = 1; $b <= $y; $b++) {
-                $result = $a * $b;
+            for ($td = 1; $td <= $cols; $td++) {
+                $result = $tr * $td;
                 echo "<td>$result</td>";
             }
             echo "</tr>";
@@ -78,8 +80,8 @@ function task5()
     echo str_replace('Две', 'Три', $str1) . '<br>';
 }
 
-function task6($name_file = 'hello')
+function task6($file_name = 'hello')
 {
-    file_put_contents("$name_file.txt", 'Hello again!');
-    echo file_get_contents("$name_file.txt") . '<br>';
+    file_put_contents("$file_name.txt", 'Hello again!');
+    echo file_get_contents("$file_name.txt") . '<br>';
 }
