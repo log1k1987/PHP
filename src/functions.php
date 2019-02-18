@@ -33,6 +33,9 @@ function task2()
                 case '/':
                     if (func_get_arg($i) !== 0) {
                         $result /= func_get_arg($i);
+                    } else {
+                        echo "На ноль делить нельзя";
+                        return;
                     }
                     break;
                 default:
