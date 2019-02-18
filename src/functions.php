@@ -62,3 +62,24 @@ function task3($x = '', $y = '')
         echo 'переданы неверные аргументы';
     }
 }
+
+function task4()
+{
+    echo date('d:m:Y H:i') . '<br>';
+    echo strtotime('24.02.2016 00:00:00') . '<br>';
+}
+
+function task5()
+{
+    $str = 'Карл у Клары украл Кораллы';
+    $str1 = 'Две бутылки лимонада';
+
+    echo str_replace('К', '', $str) . '<br>';
+    echo str_replace('Две', 'Три', $str1) . '<br>';
+}
+
+function task6($name_file = 'hello')
+{
+    file_put_contents("$name_file.txt", 'Hello again!');
+    echo file_get_contents("$name_file.txt") . '<br>';
+}
