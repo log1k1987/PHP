@@ -1,6 +1,6 @@
 <?php
 
-function task1($array = [], $switcher = false)
+function task1($array, $switcher = false)
 {
     if (!$array) {
         return 'Данные не переданы';
@@ -45,7 +45,7 @@ function task2()
     echo $result . '<br>';
 }
 
-function task3($rows = '', $cols = '')
+function task3($rows, $cols)
 {
     if (is_int($rows) && is_int($cols)) {
         echo "<table style=text-align:center>";
@@ -61,7 +61,7 @@ function task3($rows = '', $cols = '')
 
         echo "</table>";
     } else {
-        echo 'переданы неверные аргументы';
+        echo 'переданы неверные аргументы' . '<br>';
     }
 }
 
