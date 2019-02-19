@@ -15,32 +15,69 @@ function task1($array, $switcher = false)
 
 function task2()
 {
-    if (func_num_args() > 1 && is_string(func_get_arg(0))) {
-        $action = func_get_arg(0);
-        $result = func_get_arg(1);
+    $args = func_get_args();
+    $action = $args[0];
+    $search_null = null;
+    $result = null;
 
-        for ($i = 2; $i < func_num_args(); $i++) {
-            switch ($action) {
-                case '+':
-                    $result += func_get_arg($i);
-                    break;
-                case '-':
-                    $result -= func_get_arg($i);
-                    break;
-                case '*':
-                    $result *= func_get_arg($i);
-                    break;
-                case '/':
-                    if (func_get_arg($i) !== 0) {
-                        $result /= func_get_arg($i);
-                    } else {
-                        echo "На ноль делить нельзя";
-                        return;
-                    }
-                    break;
-                default:
-                    $result = 'Передан неверный первый аргумент';
+    function task2_is_numeric($args)
+    {
+        $error = null;
+
+        array_shift($args);
+        foreach ($args as $arg) {
+            if (!is_numeric($arg)) {
+                $error = true;
             }
+        }
+        return $error;
+    }
+
+    function task2_search_null($args)
+    {
+        $error = null;
+
+        array_shift($args);
+        foreach ($args as $arg) {
+            if ($arg == 0) {
+                $error = true;
+            }
+        }
+        return $error;
+    }
+
+    if ($action === '/') {
+        $search_null = task2_search_null($args);
+    }
+
+    if (func_num_args() > 1 && is_string($args[0])) {
+        if (!task2_is_numeric($args)) {
+            if (!$search_null) {
+                $result = $args[1];
+
+                for ($i = 2; $i < func_num_args(); $i++) {
+                    switch ($action) {
+                        case '+':
+                            $result += func_get_arg($i);
+                            break;
+                        case '-':
+                            $result -= func_get_arg($i);
+                            break;
+                        case '*':
+                            $result *= func_get_arg($i);
+                            break;
+                        case '/':
+                            $result /= func_get_arg($i);
+                            break;
+                        default:
+                            $result = 'Передан неверный первый аргумент';
+                    }
+                }
+            } else {
+                $result = 'Делить на ноль нельзя!!!';
+            }
+        } else {
+            $result = 'Аргумент(-ты) не являются целыми или вещественными числами!!!';
         }
     } else {
         $result = 'Мало данных';
