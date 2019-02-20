@@ -1,5 +1,6 @@
 <?php
-function task1 () {
+function task1()
+{
     $xml = simplexml_load_file('data.xml');
 
     echo "<b>Курьерский лист №: </b> {$xml["PurchaseOrderNumber"]} ";
@@ -23,7 +24,7 @@ function task1 () {
     echo "<b>Индекс: </b> {$xml->Address[1]->Zip} <br>";
 
     echo "<br>";
-    echo "<b>Примечание: </b> {$xml->DeliveryNotes} <br><br>";
+    echo "<b>Примечание к заказу: </b> {$xml->DeliveryNotes} <br><br>";
     echo "<b>Заказанные товары:</b>";
 
     $count = 1;
@@ -35,7 +36,7 @@ function task1 () {
     echo "<td>Наименование</td>";
     echo "<td>Количество</td>";
     echo "<td>Цена в $</td>";
-    echo "<td>Непонятно чего, не знаю чего с этим делать :)</td>";
+    echo "<td>Примечание к товару</td>";
     echo "</tr>";
 
     foreach ($xml->Items->children() as $items) {
@@ -45,7 +46,7 @@ function task1 () {
         echo "<td>{$items->ProductName}</td>";
         echo "<td>{$items->Quantity}</td>";
         echo "<td>{$items->USPrice}</td>";
-
+        echo "<td>{$items->children()[3]}</td>";
         $count++;
 
         echo "</tr>";
@@ -56,7 +57,7 @@ function task1 () {
     $array_prices = $xml->xpath('//USPrice');
     $sum = 0;
 
-    foreach($array_prices as $price) {
+    foreach ($array_prices as $price) {
         $sum += (float)$price;
     }
 

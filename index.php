@@ -1,7 +1,7 @@
 <?php
-require ('src/functions.php');
+require('src/functions.php');
 
-task1 ();
+task1();
 
 
 
