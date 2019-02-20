@@ -91,3 +91,32 @@ function task2()
     var_dump(array_diff_assoc($arr2, $arr1));
     echo '</pre><br>';
 }
+
+function task3()
+{
+    $arr_rand = [];
+
+    for ($i = 0; $i < 60; $i++) {
+        array_push($arr_rand, rand(1, 100));
+    }
+
+    $fp = fopen('file.csv', 'r+');
+    fputcsv($fp, $arr_rand, ";");
+    fclose($fp);
+
+    $fp = fopen('file.csv', "r");
+    $data = fgetcsv($fp, 0, ";");
+    $summ = array_sum($data);
+    fclose($fp);
+
+    echo "Сумма чисел в массиве равна: $summ<br>";
+}
+
+function task4()
+{
+    $url = "https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json";
+    $jsoncc = json_decode(file_get_contents($url), true);
+
+    echo "{$jsoncc['query']['pages']['15580374']['pageid']} <br>";
+    echo "{$jsoncc['query']['pages']['15580374']['title']} <br>";
+}
