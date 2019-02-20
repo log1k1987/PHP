@@ -61,5 +61,33 @@ function task1()
         $sum += (float)$price;
     }
 
-    echo "<b>К оплате:</b> $ {$sum}";
+    echo "<b>К оплате:</b> $ {$sum}<br>";
+}
+
+function task2()
+{
+    $array = [[["one", "two", "three"]], ["four", "five"]];
+    $json = json_encode($array);
+    $json_after = null;
+
+    file_put_contents("output.json", $json);
+    $data = file_get_contents("output.json");
+
+    $switcher = rand(1, 2);
+
+    if ($switcher === 1) {
+        $temp = json_decode($data);
+        array_push($temp, ["six", "seven"]);
+        $json_after = json_encode($temp);
+        file_put_contents("output2.json", $json_after);
+    } else {
+        file_put_contents("output2.json", $data);
+    }
+
+    $arr1 = json_decode(file_get_contents('output.json'), true);
+    $arr2 = json_decode(file_get_contents('output2.json'), true);
+
+    echo '<pre>';
+    var_dump(array_diff_assoc($arr2, $arr1));
+    echo '</pre><br>';
 }
