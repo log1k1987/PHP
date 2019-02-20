@@ -35,7 +35,7 @@ function task1 () {
     echo "<td>Наименование</td>";
     echo "<td>Количество</td>";
     echo "<td>Цена в $</td>";
-    echo "<td>Непонятно чего :)</td>";
+    echo "<td>Непонятно чего, не знаю чего с этим делать :)</td>";
     echo "</tr>";
 
     foreach ($xml->Items->children() as $items) {
@@ -54,8 +54,8 @@ function task1 () {
     echo "<br>";
 
     $array_prices = $xml->xpath('//USPrice');
-
     $sum = 0;
+
     foreach($array_prices as $price) {
         $sum += (float)$price;
     }
