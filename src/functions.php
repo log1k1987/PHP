@@ -1,127 +1,64 @@
 <?php
+function task1 () {
+    $xml = simplexml_load_file('data.xml');
 
-function task1($array, $switcher = false)
-{
-    if (!$array) {
-        return 'Данные не переданы';
+    echo "<b>Курьерский лист №: </b> {$xml["PurchaseOrderNumber"]} ";
+    echo "<b>Дата составления: </b> {$xml["OrderDate"]} <br>";
+    echo "<br>";
+
+    echo "<b>Откуда: </b><br>";
+    echo "<b>Имя: </b> {$xml->Address[0]->Name} <br>";
+    echo "<b>Страна: </b> {$xml->Address[0]->Country} <br>";
+    echo "<b>Штат: </b> {$xml->Address[0]->State} <br>";
+    echo "<b>Город: </b> {$xml->Address[0]->City} <br>";
+    echo "<b>Улица: </b> {$xml->Address[0]->Street} <br>";
+    echo "<b>Индекс: </b> {$xml->Address[0]->Zip} <br><br>";
+
+    echo "<b>Куда: </b> " . "<br>";
+    echo "<b>Имя: </b> {$xml->Address[1]->Name}<br>";
+    echo "<b>Страна: </b> {$xml->Address[1]->Country} <br>";
+    echo "<b>Штат: </b> {$xml->Address[1]->State} <br>";
+    echo "<b>Город: </b> {$xml->Address[1]->City} <br>";
+    echo "<b>Улица: </b> {$xml->Address[1]->Street} <br>";
+    echo "<b>Индекс: </b> {$xml->Address[1]->Zip} <br>";
+
+    echo "<br>";
+    echo "<b>Примечание: </b> {$xml->DeliveryNotes} <br><br>";
+    echo "<b>Заказанные товары:</b>";
+
+    $count = 1;
+
+    echo "<table style=text-align:center border=1>";
+    echo "<tr>";
+    echo "<td>№</td>";
+    echo "<td>Партийный номер</td>";
+    echo "<td>Наименование</td>";
+    echo "<td>Количество</td>";
+    echo "<td>Цена в $</td>";
+    echo "<td>Непонятно чего :)</td>";
+    echo "</tr>";
+
+    foreach ($xml->Items->children() as $items) {
+        echo "<tr>";
+        echo "<td>$count</td>";
+        echo "<td>{$items->attributes()}</td>";
+        echo "<td>{$items->ProductName}</td>";
+        echo "<td>{$items->Quantity}</td>";
+        echo "<td>{$items->USPrice}</td>";
+
+        $count++;
+
+        echo "</tr>";
     }
-    if ($switcher === true) {
-        return implode(' ', $array);
-    }
-    for ($i = 0; $i < sizeof($array); $i++) {
-        echo "<p>$array[$i]</p>";
-    }
-}
+    echo "</table>";
+    echo "<br>";
 
-function task2()
-{
-    $args = func_get_args();
-    $action = $args[0];
-    $search_null = null;
-    $result = null;
+    $array_prices = $xml->xpath('//USPrice');
 
-    function task2_is_numeric($args)
-    {
-        $error = null;
-
-        array_shift($args);
-        foreach ($args as $arg) {
-            if (!is_numeric($arg)) {
-                $error = true;
-            }
-        }
-        return $error;
+    $sum = 0;
+    foreach($array_prices as $price) {
+        $sum += (float)$price;
     }
 
-    function task2_search_null($args)
-    {
-        $error = null;
-
-        array_shift($args);
-        foreach ($args as $arg) {
-            if ($arg == 0) {
-                $error = true;
-            }
-        }
-        return $error;
-    }
-
-    if ($action === '/') {
-        $search_null = task2_search_null($args);
-    }
-
-    if (func_num_args() > 1 && is_string($args[0])) {
-        if (!task2_is_numeric($args)) {
-            if (!$search_null) {
-                $result = $args[1];
-
-                for ($i = 2; $i < func_num_args(); $i++) {
-                    switch ($action) {
-                        case '+':
-                            $result += func_get_arg($i);
-                            break;
-                        case '-':
-                            $result -= func_get_arg($i);
-                            break;
-                        case '*':
-                            $result *= func_get_arg($i);
-                            break;
-                        case '/':
-                            $result /= func_get_arg($i);
-                            break;
-                        default:
-                            $result = 'Передан неверный первый аргумент';
-                    }
-                }
-            } else {
-                $result = 'Делить на ноль нельзя!!!';
-            }
-        } else {
-            $result = 'Аргумент(-ты) не являются целыми или вещественными числами!!!';
-        }
-    } else {
-        $result = 'Мало данных';
-    }
-    echo $result . '<br>';
-}
-
-function task3($rows, $cols)
-{
-    if (is_int($rows) && is_int($cols)) {
-        echo "<table style=text-align:center>";
-
-        for ($tr = 1; $tr <= $rows; $tr++) {
-            echo "<tr>";
-            for ($td = 1; $td <= $cols; $td++) {
-                $result = $tr * $td;
-                echo "<td>$result</td>";
-            }
-            echo "</tr>";
-        }
-
-        echo "</table>";
-    } else {
-        echo 'переданы неверные аргументы' . '<br>';
-    }
-}
-
-function task4()
-{
-    echo date('d:m:Y H:i') . '<br>';
-    echo strtotime('24.02.2016 00:00:00') . '<br>';
-}
-
-function task5()
-{
-    $str = 'Карл у Клары украл Кораллы';
-    $str1 = 'Две бутылки лимонада';
-
-    echo str_replace('К', '', $str) . '<br>';
-    echo str_replace('Две', 'Три', $str1) . '<br>';
-}
-
-function task6($file_name = 'hello')
-{
-    file_put_contents("$file_name.txt", 'Hello again!');
-    echo file_get_contents("$file_name.txt") . '<br>';
+    echo "<b>К оплате:</b> $ {$sum}";
 }
