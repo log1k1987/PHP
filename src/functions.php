@@ -96,6 +96,11 @@ function task3()
 {
     $arr_rand = [];
 
+    function even($num)
+    {
+        return(($num % 2) == 0);
+    }
+
     for ($i = 0; $i < 60; $i++) {
         array_push($arr_rand, rand(1, 100));
     }
@@ -106,7 +111,8 @@ function task3()
 
     $fp = fopen('file.csv', "r");
     $data = fgetcsv($fp, 0, ";");
-    $summ = array_sum($data);
+    $arr_even = array_filter($data, "even");
+    $summ = array_sum($arr_even);
     fclose($fp);
 
     echo "Сумма чисел в массиве равна: $summ<br>";
