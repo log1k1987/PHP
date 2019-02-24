@@ -1,19 +1,23 @@
 <?php
 require_once('src/init.php');
 
-
-
-
-
-//header("Status: $_POST");
+if(isUserAuthorized()) {
+    echo 'you are already authorized';
+    die;
+}
 
 if(!isUserAuthorized()) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $user = getEmail($email);
 
-    if(getEmail($email)) {
-        echo 'user already exists';
+    if($user) {
+        echo 'user already exists'.'<br>';
+
+        $_SESSION['user_id'] = $user['id'];
+
+        echo 'Authorized end';
         die;
     }
 
@@ -21,14 +25,11 @@ if(!isUserAuthorized()) {
     $ret = getDbConnection()->query($query);
 
     if($ret) {
-        echo 'created';
+        echo 'User created';
     } else {
         var_dump(getDbConnection()->errorInfo());
         echo 'error'. '<br>';
     }
-    die;
 }
 
-if(isUserAuthorized()) {
-    die;
-}
+
