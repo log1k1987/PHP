@@ -1,6 +1,5 @@
 <?php
-
 interface interfaceTariff
 {
-    public function theCostAtTheRateOf ();
+    public function theCostAtTheRateOf($data);
 }

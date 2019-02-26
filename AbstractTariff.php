@@ -2,7 +2,7 @@
 
 abstract class AbstractTariff implements interfaceTariff
 {
-    public function theCostAtTheRateOf()
+    public function theCostAtTheRateOf($data)
     {
 
     }
