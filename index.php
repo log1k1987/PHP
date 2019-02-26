@@ -14,40 +14,40 @@ $data = [
     'gps' => rand(0, 1)
 ];
 
-$tariff = new tariffBasic();
-echo $tariff->theCostAtTheRateOf($data) . '<br>';
+$tariff = new tariffBasic($data);
+echo $tariff->theCostAtTheRateOf() . '<br>';
 
 $data = [
     'distance' => 5,
     'time' => 3,
     'age' => 17,
     'gps' => rand(0, 1),
-    'driver' => rand(0, 1)
+    'driver' => rand(1, 1)
 ];
 
 
-$tariff = new tariffHourly();
-echo $tariff->theCostAtTheRateOf($data) . '<br>';
+$tariff = new tariffHourly($data);
+echo $tariff->theCostAtTheRateOf() . '<br>';
 
 $data = [
     'distance' => 5,
-    'time' => 2,
+    'time' => 1,
     'age' => 18,
     'gps' => rand(0, 1),
     'driver' => rand(0, 1)
 ];
 
 
-$tariff = new tariffDaily();
-echo $tariff->theCostAtTheRateOf($data) . '<br>';
+$tariff = new tariffDaily($data);
+echo $tariff->theCostAtTheRateOf() . '<br>';
 
 $data = [
     'distance' => 5,
     'time' => 2,
-    'age' => 25,
+    'age' => 23,
     'gps' => rand(0, 1)
 ];
 
 
-$tariff = new tariffStudents();
-echo $tariff->theCostAtTheRateOf($data) . '<br>';
+$tariff = new tariffStudents($data);
+echo $tariff->theCostAtTheRateOf() . '<br>';

@@ -6,24 +6,15 @@ class tariffStudents extends AbstractTariff
 
     protected $pricePerKm = 4;
     protected $pricePerMin = 1;
-    protected $ratio = 1;
 
-    public function theCostAtTheRateOf($data)
+    public function __construct($data)
     {
         if ($data['age'] > 25) {
-            return 'Вы уже не студент';
+            $this->can = false;//
+            $this->result = 'Вы уже не студент';
+        } else {
+            $this->data = $data;
         }
-
-        if (18 <= $data['age'] && $data['age'] <= 21) {
-            $this->ratio += $this->ratio * 0.1;
-        }
-
-        $result = ($data['distance'] * $this->pricePerKm + $data['time'] * $this->pricePerMin) * $this->ratio;
-
-        if ($data['gps']) {
-            $result += $this->Gps($data['time']);
-        }
-
-        return $result;
     }
+
 }

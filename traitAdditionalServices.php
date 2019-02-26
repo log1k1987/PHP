@@ -7,8 +7,8 @@ trait traitAdditionalServices
         return ceil($time / 60) * 15;
     }
 
-    public function Driver($result)
+    public function Driver()
     {
-        return $result += 100;
+        return 100;
     }
 }
