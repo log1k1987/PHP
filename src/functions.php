@@ -27,8 +27,6 @@ function task1()
     echo "<b>Примечание к заказу: </b> {$xml->DeliveryNotes} <br><br>";
     echo "<b>Заказанные товары:</b>";
 
-    $count = 1;
-
     echo "<table style=text-align:center border=1>";
     echo "<tr>";
     echo "<td>№</td>";
@@ -38,6 +36,8 @@ function task1()
     echo "<td>Цена в $</td>";
     echo "<td>Примечание к товару</td>";
     echo "</tr>";
+
+    $count = 1;
 
     foreach ($xml->Items->children() as $items) {
         echo "<tr>";
@@ -78,18 +78,22 @@ function task2()
     if ($switcher === 1) {
         $temp = json_decode($data);
         array_push($temp, ["six", "seven"]);
-        $json_after = json_encode($temp);
-        file_put_contents("output2.json", $json_after);
+        file_put_contents("output2.json", json_encode($temp));
     } else {
         file_put_contents("output2.json", $data);
     }
 
     $arr1 = json_decode(file_get_contents('output.json'), true);
     $arr2 = json_decode(file_get_contents('output2.json'), true);
+    $result = array_diff_assoc($arr2, $arr1);
 
-    echo '<pre>';
-    var_dump(array_diff_assoc($arr2, $arr1));
-    echo '</pre><br>';
+    if (!empty($result)) {
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre><br>';
+    } else {
+        echo 'Данные в файлах идентичны<br>';
+    }
 }
 
 function task3()
@@ -98,14 +102,14 @@ function task3()
 
     function even($num)
     {
-        return(($num % 2) == 0);
+        return (($num % 2) == 0);
     }
 
     for ($i = 0; $i < 60; $i++) {
         array_push($arr_rand, rand(1, 100));
     }
 
-    $fp = fopen('file.csv', 'r+');
+    $fp = fopen('file.csv', 'w+');
     fputcsv($fp, $arr_rand, ";");
     fclose($fp);
 
