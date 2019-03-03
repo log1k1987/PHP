@@ -1,5 +1,6 @@
 <?php
 require_once('src/init.php');
+require_once 'vendor/autoload.php';
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -53,6 +54,7 @@ $query = "SELECT count(*) FROM `orders` WHERE user_id= {$user['id']}";
 $ret = getDbConnection()->query($query);
 $ordersLength = $ret->fetchColumn();
 
+
 if ($ordersLength > 1) {
     $byeMessage = "Спасибо! Это уже $ordersLength-й заказ";
 } else {
@@ -63,9 +65,27 @@ $message = "Ваш заказ будет доставлен по адресу: $
             - DarkBeefBurger за 500 рублей, 1 шт\r\n
             $byeMessage";
 
-$message = wordwrap($message, 150, "\r\n");
-$sendMail = mail($email, "Заказ №{$lastOrderId}", $message);
+try {
+// Create the Transport
+    $transport = (new Swift_SmtpTransport('smtp.yandex.ru', 465, 'ssl'))
+        ->setUsername('vorotova1988')
+        ->setPassword('log1ka1987')
+    ;
 
-if (!$sendMail) {
-    echo $errorMessage = error_get_last()['message'];
+// Create the Mailer using your created Transport
+    $mailer = new Swift_Mailer($transport);
+
+// Create a message
+    $message = (new Swift_Message("Заказ №{$lastOrderId}"))
+        ->setFrom(['vorotova1988@yandex.ru' => 'vorotova1988@yandex.ru'])
+        ->setTo(['Ваша@почта.ru'])
+        ->setBody($message)
+    ;
+
+// Send the message
+    $result = $mailer->send($message);
+    var_dump(['res' => $result]);
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+    echo '<pre>' . print_r($e->getTrace(), 1);
 }

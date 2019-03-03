@@ -1,4 +1,4 @@
 Админка - http://localhost:8888/admin.php  
-Письма сохраняются в openserver - OSPanel\userdata\temp\email  
+В файле form.php в строке 82 указать почту для получения писем    
 Дамб бд - burgers.sql   имя пользователя 'root' пароль ''  
 
