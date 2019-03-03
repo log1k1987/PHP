@@ -1,6 +1,9 @@
 <?php
 require_once('src/init.php');
 require_once 'vendor/autoload.php';
+require_once 'view.php';
+
+use dz5\view;
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -13,47 +16,51 @@ $floor = $_POST['floor'];
 $comment = $_POST['comment'];
 $address = "$street $home $floor $part $appt";
 $user = getEmail($email);
+$data = [];
 
 if (!isUserAuthorized()) {
 
     if ($user) {
-        echo 'user already exists' . '<br>';
+        $data += ['message' => 'user already exists'];
     } else {
         $query = "INSERT INTO users (email, `name`, phone) VALUES ('$email', '$name', '$phone')";
         $ret = getDbConnection()->query($query);
 
         if ($ret) {
-            echo 'User created' . '<br>';
+            $data += ['message1' => 'User created'];
         } else {
             var_dump(getDbConnection()->errorInfo());
-            echo 'error' . '<br>';
+            $data += ['message2' => 'Error'];
         }
 
         $user = getEmail($email);
     }
 
     $_SESSION['user_id'] = $user['id'];
-    echo 'Authorized end' . '<br>';
+    $data += ['message3' => 'Authorized end'];
 }
 
-echo 'you are already authorized' . '<br>';
+$data += ['message4' => 'you are already authorized'];
 
 $query = "INSERT INTO orders (`user_id`, `address`, `comment`) VALUES ('{$user['id']}', '$address', '$comment')";
 $ret = getDbConnection()->query($query);
 $lastOrderId = getDbConnection()->lastInsertId();
-echo $lastOrderId . '<br>';
+$data += ['message5' => $lastOrderId];
 
 if ($ret) {
-    echo 'Order created' . '<br>';
+    $data += ['message6' => 'Order created'];
 } else {
     var_dump(getDbConnection()->errorInfo());
-    echo 'error' . '<br>';
+    $data += ['message7' => 'Erroe'];
 }
 
 $query = "SELECT count(*) FROM `orders` WHERE user_id= {$user['id']}";
 $ret = getDbConnection()->query($query);
 $ordersLength = $ret->fetchColumn();
 
+
+$view = new view();
+echo $view->render('index', $data);
 
 if ($ordersLength > 1) {
     $byeMessage = "Спасибо! Это уже $ordersLength-й заказ";
@@ -78,7 +85,7 @@ try {
 // Create a message
     $message = (new Swift_Message("Заказ №{$lastOrderId}"))
         ->setFrom(['vorotova1988@yandex.ru' => 'vorotova1988@yandex.ru'])
-        ->setTo(['Ваша@почта.ru'])
+        ->setTo([$email])
         ->setBody($message)
     ;
 
