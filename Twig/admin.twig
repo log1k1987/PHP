@@ -1,0 +1,22 @@
+
+<h1>Шаблон twig</h1>
+Список пользователей: <br>
+
+{% for user in users.users %}
+    * {{ user }}<br>
+{% else %}
+    No users have been found.
+{% endfor %}
+
+<br>
+
+Список Заказов: <br>
+
+{% for order in users.orders %}
+    * {{ order }}<br>
+{% else %}
+    No orders have been found.
+{% endfor %}
+
+<br>
+

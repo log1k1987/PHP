@@ -1,8 +1,7 @@
 <?php
-require_once('src/init.php');
+require_once('srcc/init.php');
 require_once 'vendor/autoload.php';
 require_once 'view.php';
-
 use dz5\view;
 
 $name = $_POST['name'];
